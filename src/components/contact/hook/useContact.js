@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { contactSchema } from "../schema/contactSchema";
 import { useToastMessages } from "@/components/message/useToastMessages";
 
@@ -32,29 +31,6 @@ export const useContact = () => {
     );
     if (res) {
       Success("Message  Successful Delivered");
-
-
-
-
-
-
-      const pp = await fetch(
-        "https://curd-fd3f2-default-rtdb.firebaseio.com/student.json",
-        {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.parse({ id, name, email, message }),
-        }
-      );
-
-
-
-
-
-
-      console.log(pp);
     } else {
       Warn("Message Not Delivered !");
     }

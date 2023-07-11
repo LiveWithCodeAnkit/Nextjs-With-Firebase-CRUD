@@ -1,12 +1,14 @@
-import Login from "@/components/login/Login";
 import Registration from "@/components/register/Registration";
 import Navbar from "@/components/welcome/Navbar";
+import React from "react";
 
-export default function Home() {
+const page = () => {
   return (
     <>
       <Navbar />
-      <Login />
+      <Registration />
     </>
   );
-}
+};
+
+export default page;
