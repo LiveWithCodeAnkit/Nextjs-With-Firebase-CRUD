@@ -1,15 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My Web App
 
-## Getting Started
+This web application is built using Next.js and incorporates Firebase authentication for sign-in and sign-up functionality, including custom authentication and Google authentication. It also includes CRUD (Create, Read, Update, Delete) operations, login/logout functionality, and utilizes Tailwind CSS for styling.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- Firebase authentication for sign-in and sign-up functionality.
+- Custom authentication and Google authentication options.
+- CRUD operations for managing data.
+- Login and logout functionality.
+- Integration with Tailwind CSS for styling.
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
