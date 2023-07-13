@@ -15,13 +15,16 @@ const Navbar = () => {
     }
   }, [isLoading, authUser]);
 
+  console.log("i am navbar:=", authUser);
+
   return (
     <>
       <div className="bg-slate-600 flex justify-around items-center gap-9 p-5 text-3xl sticky top-0 ">
         <h1 className="text-3xl text-white font-semibold flex justify-center items-center gap-4">
-          CURD <TbBrandNextjs className=" text-3xl" />
+          CRUD <TbBrandNextjs className=" text-3xl" />
           <SiFirebase className="text-[#FF8F00] text-3xl" />
         </h1>
+
         <nav>
           <ul className="flex items-center gap-10 text-2xl text-white font-semibold">
             {!authUser && (

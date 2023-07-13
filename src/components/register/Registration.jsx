@@ -5,17 +5,18 @@ import { useRegister } from "./hook/useRegister";
 import { useAuth } from "../../../firebase/auth";
 import { useEffect } from "react";
 import Loading from "../loader/Loading";
-
 const Registration = () => {
   const { initialValues, schema, handleSubmit, navigate, googleSignUp } =
     useRegister();
 
   const { authUser, isLoading } = useAuth();
-  useEffect(() => {
-    if (!isLoading && authUser) {
-      navigate("contact");
-    }
-  }, [isLoading, authUser]);
+
+  console.log(authUser);
+  // useEffect(() => {
+  //   if (!isLoading && authUser) {
+  //     // navigate("contact");
+  //   }
+  // }, [isLoading, authUser]);
   return isLoading || (!isLoading && authUser) ? (
     <Loading />
   ) : (
@@ -44,7 +45,9 @@ const Registration = () => {
 
                 <div
                   className="bg-black/[0.05] text-white w-full py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90 flex justify-center items-center gap-4 cursor-pointer group"
-                  onClick={googleSignUp}
+                  onClick={() => {
+                    googleSignUp();
+                  }}
                 >
                   <FcGoogle size={22} />
                   <span className="font-medium text-black group-hover:text-white">

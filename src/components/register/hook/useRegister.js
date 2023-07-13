@@ -32,8 +32,8 @@ export const useRegister = () => {
   const handleGoogleSignUp = async () => {
     try {
       await signInWithPopup(auth, provider);
-      Success("Registration DONE 😄");
-      handleNavigate("login");
+      Success("LoggedIn 😄");
+      handleNavigate("contact");
     } catch (error) {
       console.error("Error..", error);
       Warn("Something Wrong :(");
@@ -52,7 +52,10 @@ export const useRegister = () => {
       });
       Success("Registration DONE 😄");
 
+      
       resetForm();
+      handleNavigate("login")
+
     } catch (error) {
       Warn("Something Wrong  😑!");
     }

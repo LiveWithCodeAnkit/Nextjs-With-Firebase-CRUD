@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <ToastContainer />
 
         <AuthUserProvider>
-          {/* <Navbar /> */}
+          <Navbar />
           {children}
         </AuthUserProvider>
       </body>

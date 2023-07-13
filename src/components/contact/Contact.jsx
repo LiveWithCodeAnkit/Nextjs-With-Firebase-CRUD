@@ -1,11 +1,12 @@
 "use client";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useContact } from "./hook/useContact";
 import { useAuth } from "../../../firebase/auth";
 
 const Contact = () => {
   const { authUser } = useAuth();
+ 
   const { initialValues, schema, handleSubmit } = useContact();
   return (
     <>
@@ -17,7 +18,7 @@ const Contact = () => {
         <Form>
           <div className="flex justify-center items-center p-8">
             <div className="bg-blue-300 flex flex-col justify-center items-start  p-10 gap-4">
-              <h1>{authUser?`Welcome ${authUser.name}`:"Welcome"}</h1>
+              <h1>{authUser ? `Welcome ${authUser.name}` : "Welcome"}</h1>
               <div className="flex flex-col justify-center items-start gap-3">
                 <label>Name</label>
                 <Field
