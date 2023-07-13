@@ -3,11 +3,16 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useContact } from "./hook/useContact";
 import { useAuth } from "../../../firebase/auth";
+import View from "./View";
 
 const Contact = () => {
   const { authUser } = useAuth();
- 
-  const { initialValues, schema, handleSubmit } = useContact();
+
+  const { initialValues, schema, handleSubmit, handleDelete, allMessages } =
+    useContact();
+
+
+
   return (
     <>
       <Formik
@@ -20,12 +25,12 @@ const Contact = () => {
             <div className="bg-blue-300 flex flex-col justify-center items-start  p-10 gap-4">
               <h1>{authUser ? `Welcome ${authUser.name}` : "Welcome"}</h1>
               <div className="flex flex-col justify-center items-start gap-3">
-                <label>Name</label>
+                <label>Subject</label>
                 <Field
                   type="text"
                   name="name"
                   id="name"
-                  className="h-10 rounded-sm"
+                  className="h-10 rounded-sm p-2"
                 />
                 <ErrorMessage
                   name="name"
@@ -39,7 +44,8 @@ const Contact = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="h-10 rounded-sm"
+                  className="h-10 rounded-sm p-2"
+                  readOnly
                 />
                 <ErrorMessage
                   name="email"
@@ -53,7 +59,7 @@ const Contact = () => {
                   type="textarea"
                   name="message"
                   id="message"
-                  className="h-20 rounded-sm"
+                  className="h-20 rounded-sm p-2"
                 />
                 <ErrorMessage
                   name="message"
@@ -71,6 +77,7 @@ const Contact = () => {
           </div>
         </Form>
       </Formik>
+      <View messages={allMessages} handleDelete={handleDelete} />
     </>
   );
 };

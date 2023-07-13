@@ -19,7 +19,6 @@ export default function useFirebaseAuth() {
   };
 
   const authStateChanged = (user) => {
-   
     SetLoading(true);
     if (!user) {
       clear();
@@ -33,8 +32,6 @@ export default function useFirebaseAuth() {
 
     SetLoading(false);
   };
-
-
 
   const signOut = () => {
     authSignOut(auth).then(() => clear());
