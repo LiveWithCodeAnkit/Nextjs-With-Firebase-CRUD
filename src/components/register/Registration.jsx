@@ -11,12 +11,11 @@ const Registration = () => {
 
   const { authUser, isLoading } = useAuth();
 
-  console.log(authUser);
-  // useEffect(() => {
-  //   if (!isLoading && authUser) {
-  //     // navigate("contact");
-  //   }
-  // }, [isLoading, authUser]);
+  useEffect(() => {
+    if (!isLoading && authUser) {
+       navigate("contact");
+    }
+  }, [isLoading, authUser]);
   return isLoading || (!isLoading && authUser) ? (
     <Loading />
   ) : (

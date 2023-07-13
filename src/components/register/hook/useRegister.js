@@ -39,11 +39,16 @@ export const useRegister = () => {
       Warn("Something Wrong :(");
     }
   };
+
   const handleSubmit = async (values, { resetForm }) => {
     const { name, email, password } = values;
 
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await updateProfile(auth.currentUser, { displayName: name });
       setAuthUser({
         uid: user.uid,
@@ -51,11 +56,8 @@ export const useRegister = () => {
         name: user.displayName,
       });
       Success("Registration DONE 😄");
-
-      
+      handleNavigate("contact");
       resetForm();
-      handleNavigate("login")
-
     } catch (error) {
       Warn("Something Wrong  😑!");
     }

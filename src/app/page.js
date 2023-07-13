@@ -1,11 +1,9 @@
-import Login from "@/components/login/Login";
-import Navbar from "@/components/welcome/Navbar";
+import Registration from "@/components/register/Registration";
 
 export default function Home() {
   return (
     <>
-      {/* <Navbar /> */}
-      <Login />
+      <Registration />
     </>
   );
 }

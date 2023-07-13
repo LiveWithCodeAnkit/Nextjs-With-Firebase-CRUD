@@ -15,7 +15,6 @@ const Navbar = () => {
     }
   }, [isLoading, authUser]);
 
-  console.log("i am navbar:=", authUser);
 
   return (
     <>

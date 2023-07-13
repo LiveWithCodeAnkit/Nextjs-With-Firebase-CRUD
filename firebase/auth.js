@@ -19,7 +19,7 @@ export default function useFirebaseAuth() {
   };
 
   const authStateChanged = (user) => {
-    console.log("i am auth:=",user);
+   
     SetLoading(true);
     if (!user) {
       clear();
@@ -35,7 +35,6 @@ export default function useFirebaseAuth() {
   };
 
 
-console.log("i am authuser:=",authUser);
 
   const signOut = () => {
     authSignOut(auth).then(() => clear());
@@ -43,7 +42,7 @@ console.log("i am authuser:=",authUser);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, authStateChanged);
-    return unsubscribe();
+    return unsubscribe;
   }, []);
 
   return {

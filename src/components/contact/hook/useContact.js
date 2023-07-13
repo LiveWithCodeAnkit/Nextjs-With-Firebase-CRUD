@@ -15,7 +15,7 @@ export const useContact = () => {
       ...values,
     };
 
-    console.log("i am values", valueEntry);
+   
 
     const { id, name, email, message } = valueEntry;
 
