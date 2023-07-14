@@ -1,22 +1,23 @@
 "use client";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useParams } from "next/navigation";
 import { useContact } from "./hook/useContact";
 import { useAuth } from "../../../firebase/auth";
 import View from "./View";
 
 const Contact = () => {
+  const params = useParams();
   const { authUser } = useAuth();
 
   const { initialValues, schema, handleSubmit, handleDelete, allMessages } =
     useContact();
 
-
-
   return (
     <>
       <Formik
         initialValues={initialValues}
+        enableReinitialize
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
@@ -28,12 +29,12 @@ const Contact = () => {
                 <label>Subject</label>
                 <Field
                   type="text"
-                  name="name"
-                  id="name"
+                  name="subject"
+                  id="subject"
                   className="h-10 rounded-sm p-2"
                 />
                 <ErrorMessage
-                  name="name"
+                  name="subject"
                   component="div"
                   className="text-red-600 font-semibold"
                 />
@@ -47,16 +48,11 @@ const Contact = () => {
                   className="h-10 rounded-sm p-2"
                   readOnly
                 />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="text-red-600 font-semibold"
-                />
               </div>
               <div className="flex flex-col justify-center items-start gap-3">
                 <label>Message</label>
                 <Field
-                  type="textarea"
+                  as="textarea"
                   name="message"
                   id="message"
                   className="h-20 rounded-sm p-2"
@@ -71,7 +67,7 @@ const Contact = () => {
                 type="submit"
                 className="bg-slate-700 p-3 text-white font-bold rounded-lg"
               >
-                Send It!
+                {params.contact ? "Update It !" : "  Send It !"}
               </button>
             </div>
           </div>

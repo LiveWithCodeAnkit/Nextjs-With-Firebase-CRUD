@@ -9,7 +9,9 @@ import {
   updateDoc,
   doc,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { useAuth } from "../../../../firebase/auth";
 import { contactSchema } from "../schema/contactSchema";
 import { useToastMessages } from "@/components/message/useToastMessages";
@@ -17,12 +19,11 @@ import { db } from "../../../../firebase/firebase";
 
 export const useContact = () => {
   const params = useParams();
-  console.log(params.contact);
+  const router = useRouter();
   const { authUser } = useAuth();
   const { Success, Warn } = useToastMessages();
-
   const [allMessages, setMessages] = useState([]);
-  const [message, setMessage] = useState([]);
+  const [messageUp, setMessage] = useState([]);
 
   useEffect(() => {
     if (!!authUser) {
@@ -32,42 +33,39 @@ export const useContact = () => {
 
   useEffect(() => {
     if (params.contact) {
-      // Fetch the data only when params.contact is true
       handleFetchMessage(params.contact);
+    } else {
+      setMessage({});
     }
   }, [params.contact]);
 
   const handleFetchMessage = async (contactId) => {
     try {
-      const q = query(
-        collection(db, "contactus/"),
-        where("id", "==", contactId)
-      );
-      const querySnapshot = await getDocs(q);
-      let data = [];
+      const docRef = doc(db, "contactus", contactId);
 
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-      });
+      const querySnapshot = await getDoc(docRef);
 
-      setMessage(data);
-      console.log("Updated message:", message);
+      if (querySnapshot.exists()) {
+        const data = querySnapshot.data();
+
+        setMessage(data);
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
   const initialValues = {
-    name: "",
+    subject: messageUp && messageUp.subject ? messageUp.subject : "",
     email: authUser ? authUser.email : "",
-    message: "",
+    message: messageUp && messageUp.message ? messageUp.message : "",
   };
 
   const handleDelete = async (id) => {
     try {
       deleteDoc(doc(db, "contactus", id));
       Success("Message  Successful Deleted :)");
-      handleFetch(authUser.email);
+     await handleFetch(authUser.email);
     } catch (error) {
       console.error(error);
     }
@@ -77,8 +75,6 @@ export const useContact = () => {
     try {
       const q = query(collection(db, "contactus"), where("email", "==", email));
       const querySnapshot = await getDocs(q);
-
-      console.log("i fetch:=",querySnapshot);
       let data = [];
 
       querySnapshot.forEach((doc) => {
@@ -91,18 +87,25 @@ export const useContact = () => {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    const { name, email, message } = values;
+    const { subject, email, message } = values;
     try {
-      const docRef = await addDoc(collection(db, "contactus"), {
-        subject: name,
-        email: email,
-        message: message,
-      });
+      if (params.contact !== undefined && params.contact !== "") {
+        const docRef = doc(db, "contactus", params.contact);
+        await updateDoc(docRef, values);
+        router.push("/contact");
+      } else {
+        const docRef = await addDoc(collection(db, "contactus"), {
+          subject: subject,
+          email: email,
+          message: message,
+        });
+      }
+
       Success("Message  Successful Delivered");
       handleFetch(email);
     } catch (error) {
-      console.log(error);
-      Warn("Message Not Delivered !");
+      console.error(error);
+      Warn("Something Wrong");
     }
 
     resetForm();

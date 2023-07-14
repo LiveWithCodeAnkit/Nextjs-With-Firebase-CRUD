@@ -5,9 +5,10 @@ import { SiFirebase } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 import { useAuth } from "../../../firebase/auth";
 import { useRouter } from "next/navigation";
-
+import { useToastMessages } from "@/components/message/useToastMessages";
 const Navbar = () => {
   const router = useRouter();
+  const { Info} = useToastMessages();
   const { authUser, isLoading, signOut } = useAuth();
   useEffect(() => {
     if (!isLoading && !authUser) {
@@ -41,7 +42,10 @@ const Navbar = () => {
         {authUser && (
           <button
             className="font-Pacifico text-xl rounded-lg hover:text-white w-auto p-2 bg-[#7b9194]"
-            onClick={signOut}
+            onClick={()=>{
+              signOut();
+              Info("Logged Out !")
+            }}
           >
             Logout
           </button>
