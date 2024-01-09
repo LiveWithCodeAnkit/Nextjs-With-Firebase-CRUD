@@ -9,4 +9,3 @@ This web application is built using Next.js and incorporates Firebase authentica
 - CRUD operations for managing data.
 - Login and logout functionality.
 - Integration with Tailwind CSS for styling.
-```
